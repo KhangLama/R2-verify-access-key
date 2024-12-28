@@ -40,7 +40,17 @@ node index.js clean
 
 ### Environment Variables
 
-<vscode_annotation details='%5B%7B%22title%22%3A%22hardcoded-credentials%22%2C%22description%22%3A%22Embedding%20credentials%20in%20source%20code%20risks%20unauthorized%20access%22%7D%5D'>Make sure your .env file contains the following variables: </vscode_annotation>``` ACCESS_KEY=<your_access_key> SECRET_KEY=<your_secret_key> BUCKET_NAME=<your_bucket_name> ACCOUNT_ID=<your_account_id>
+Make sure your 
+
+.env
+
+ file contains the following variables:
+```
+ACCESS_KEY=<your_access_key>
+SECRET_KEY=<your_secret_key>
+BUCKET_NAME=<your_bucket_name>
+ACCOUNT_ID=<your_account_id>
+```
 
 ### Example Output
 If the credentials are valid, you should see the contents of the bucket and a message indicating that the bucket has been cleaned up successfully.
