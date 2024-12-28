@@ -19,11 +19,12 @@ node index.js
 
 Environment Variables
 Make sure your .env file contains the following variables:
+```env
 ACCESS_KEY=<your_access_key>
 SECRET_KEY=<your_secret_key>
 BUCKET_NAME=<your_bucket_name>
 ACCOUNT_ID=<your_account_id>
-
+```
 Example Output
 If the credentials are valid, you should see the contents of the bucket and a message indicating that the bucket has been cleaned up successfully.
 
