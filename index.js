@@ -32,6 +32,17 @@ async function validateR2Credentials(accessKey, secretKey, bucketName, accountId
   }
 }
 
+async function listR2BucketContents(accessKey, secretKey, bucketName, accountId) {
+  const s3 = getS3Client(accessKey, secretKey, accountId);
+
+  try {
+    const response = await s3.listObjectsV2({ Bucket: bucketName }).promise();
+    console.log("Bucket contents:", response.Contents);
+  } catch (error) {
+    console.error("Error listing bucket contents:", error);
+  }
+}
+
 async function cleanUpR2Bucket(accessKey, secretKey, bucketName, accountId) {
   const s3 = getS3Client(accessKey, secretKey, accountId);
 
@@ -65,14 +76,24 @@ async function cleanUpR2Bucket(accessKey, secretKey, bucketName, accountId) {
     process.exit(1);
   }
 
-  try {
-    const result = await validateR2Credentials(accessKey, secretKey, bucketName, accountId);
-    console.log(result.message);
+  const action = process.argv[2];
 
-    if (result.valid) {
+  switch (action) {
+    case 'verify':
+      try {
+        const result = await validateR2Credentials(accessKey, secretKey, bucketName, accountId);
+        console.log(result.message);
+      } catch (error) {
+        console.error("Error validating credentials:", error.message);
+      }
+      break;
+    case 'list':
+      await listR2BucketContents(accessKey, secretKey, bucketName, accountId);
+      break;
+    case 'clean':
       await cleanUpR2Bucket(accessKey, secretKey, bucketName, accountId);
-    }
-  } catch (error) {
-    console.error("Error:", error.message);
+      break;
+    default:
+      console.log("Invalid action. Use 'verify', 'list', or 'clean'.");
   }
 })();
